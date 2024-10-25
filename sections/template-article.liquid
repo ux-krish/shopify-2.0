@@ -1,5 +1,65 @@
-<h1>{{ article.title }}</h1>
-<p>{{ article.author }}</p>
-<time datetime="{{ article.published_at | date : '%Y-%m-%d' }}">{{ article.published_at | date : '%Y-%m-%d' }}</time>
-<img src="{{ article.image | img_url: 'large' }}" loading="lazy" height="{{ article.image.height }}" width="{{ article.image.width }}" alt="{{ article.image.alt }}" /> 
-<div class="p-10">{{ article.content }}</div>
+<h1 class="text-2xl font-bold text-cyan-500 mb-5">{{ article.title }}</h1>
+<hr class="bg-cyan-300 h-2">
+<img src="{{ article.image | img_url:'master' }}" loading="lazy" height="{{ article.image.height }}" width="{{ article.image.width }}" alt="{{ article.image.alt }}" /> 
+<div class="flex justify-between items-center my-4">
+    {% if section.settings.enable_author %}
+        <div class="bg-cyan-400 text-[12px] m-0 leading-none rounded-full py-1 px-3 flex items-center text-white font-bold">Blog by: <span class="ml-2">{{ article.author }}</span></div>
+    {% endif %}
+    
+    {% if section.settings.enable_publish_date %}
+        <time class="bg-cyan-400 text-[12px] m-0 leading-none rounded-full py-1 px-4 flex items-center text-white font-bold" datetime="{{ article.published_at | date : '%Y-%m-%d' }}">{{ article.published_at | date : '%Y-%m-%d' }}</time>
+    {% endif %}
+    
+</div>
+<div class="p-10 rounded-lg bg-cyan-100 text-sm">{{ article.content }}</div>
+
+
+{% schema %}
+    {
+        "name": "Template Article",
+        "tag": "section",
+        "class": "flex max-w-2xl flex-col w-full mx-auto p-5",
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "enable_author",
+                "label": "Display Author Name",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "enable_publish_date",
+                "label":"Display Published date",
+                "default":true
+            }
+        ],
+        "blocks": [
+            {
+                "type": "article_title",
+                "name": "Title",
+                "limit": 1
+            },
+            {
+                "type": "article_author",
+                "name":"Author",
+                "limit": 1
+
+            },
+            {
+                "type": "article_published_date",
+                "name": "Published Date",
+                "limit":1
+            },
+            {
+                "type": "featured_image",
+                "name":"Thumbnail",
+                "limit": 1
+            },
+            {
+                "type": "article_content",
+                "name": "Content",
+                "limit": 1
+            }
+        ]
+    }
+{% endschema %}

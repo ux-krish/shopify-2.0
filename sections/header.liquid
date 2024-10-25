@@ -1,5 +1,5 @@
 {% assign main_menu_linklist = linklists[section.settings.menu].links %}
-<div class="bg-white rounded-b-xl sticky top-0" x-data="{ mobileMenuOpen: true}">
+<div class="sticky top-0" x-data="{ mobileMenuOpen: true}">
     <div class="mx-auto px-4 sm:px-6">
       <div class="flex justify-between items-center py-6 md:justify-start md:space-x-10">
         <!-- STORE NAME / STORE LOGO -->
@@ -14,7 +14,7 @@
         </div>
   
         <!-- NAVIGATION MENU -->
-        <nav x-data="{ open:false }" class="hidden md:flex space-x-10">
+        <nav x-data="{ open:false }" class="hidden md:flex space-x-10 rounded-full bg-cyan-200 px-5 py-2 mx-0">
           {% for link in main_menu_linklist %}
             {% if link.links != blank %}
               <div class="relative">
