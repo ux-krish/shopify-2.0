@@ -579,6 +579,10 @@ video {
   z-index: 10;
 }
 
+.float-start {
+  float: inline-start;
+}
+
 .-m-3 {
   margin: -0.75rem;
 }
@@ -605,6 +609,11 @@ video {
 .mx-0 {
   margin-left: 0px;
   margin-right: 0px;
+}
+
+.my-3 {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .-ml-5 {
@@ -656,6 +665,10 @@ video {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
+}
+
+.block {
+  display: block;
 }
 
 .flex {

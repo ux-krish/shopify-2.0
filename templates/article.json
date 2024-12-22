@@ -2,7 +2,7 @@
     "sections" : {
         "template" : {
             "type" : "template-article",
-            "block": {
+            "blocks": {
                 "title" : {
                     "type" : "article_title"
                 },
@@ -19,7 +19,7 @@
                     "type" : "article_content"
                 }
             },
-            "block_order" : ["title","author","published_date","thumbnail","content"]
+            "block_order" : ["thumbnail","author","published_date","title","content"]
         }
     },
     "order": ["template"]
