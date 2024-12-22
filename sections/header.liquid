@@ -1,7 +1,7 @@
 {% assign main_menu_linklist = linklists[section.settings.menu].links %}
-<div class="sticky top-0" x-data="{ mobileMenuOpen: true}">
+<div class="sticky top-0" x-data="{ mobileMenuOpen: false}">
   <div class="mx-auto px-4 sm:px-6">
-    <div class="flex justify-between items-center py-6 md:justify-start md:space-x-10 px-4">
+    <div class="flex justify-between items-center py-5 md:justify-start md:space-x-10 px-4">
       <!-- STORE NAME / STORE LOGO -->
       <a href="{{ routes.root_url }}" class="flex justify-start lg:flex-1 truncate">
         <h1 class="text-xl font-bold truncate">{{ shop.name }}</h1>
@@ -11,7 +11,7 @@
         <button
           x-on:click="mobileMenuOpen = true"
           type="button"
-          class="bg-white p-2 inline-flex items-center justify-center focus:outline-none"
+          class="bg-white p-2 inline-flex items-center rounded-xl justify-center focus:outline-none"
         >
           {% render 'icon-hamburger' %}
         </button>
@@ -54,7 +54,7 @@
             <div class="relative">
               <a
                 href="{{ link.url }}"
-                class="px-4 py-1 text-[14px] rounded-full text-base text-neutral-500 hover:text-neutral-100 hover:bg-neutral-600 {% if link.active == true %} text-neutral-100 bg-neutral-800 {% endif %}"
+                class="font-semibold px-4 py-1 text-[12px] rounded-full text-base text-neutral-600 hover:text-neutral-500 hover:shadow-lg hover:bg-gradient-to-tr hover:from-sky-200 hover:to-purple-200 uppercase tracking-wider transition-all ease-in-out {% if link.active == true %} text-neutral-50 bg-gradient-to-tr from-sky-400 to-purple-400 visited:text-neutral-50 shadow-lg {% endif %}"
               >
                 {{- link.title -}}
               </a>
@@ -79,7 +79,7 @@
   <!-- MOBILE MENU CONTAINER -->
   <div x-show="mobileMenuOpen" class="absolute z-10 top-0 inset-x-0 p-2 transform origin-top-left md:hidden">
     <div class="shadow-lg rounded-lg ring-1 ring-black ring-opacity-5 bg-white w-full">
-      <div class="p-5 divide-y-2 divide-neutral-50">
+      <div class="py-2 px-6 divide-y-1 divide-neutral-50">
         <!-- MOBILE MENU HEADER TITLE PLUS CLOSE BUTTON -->
         <div class="flex items-center justify-between pb-3">
           <a href="{{ routes.root_url }}">
