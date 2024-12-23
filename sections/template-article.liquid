@@ -4,38 +4,41 @@
       {% when 'article_title' %}
         <div class="flex item-center justify-center ">
           <div class="w-full">
-            <a href="{{ blog.url }}" class="text-base uppercase text-neutral-500 hover:text-neutral-800 font-bold">
+            <a href="{{ blog.url }}" style="-webkit-text-fill-color: transparent;" class="text-base uppercase bg-clip-text  text-transparent bg-gradient-to-tr from-rose-400 to-indigo-400 hover:text-neutral-800 font-bold">
               {{ blog.title }}
             </a>
             <h1 class="text-4xl font-bold text-neutral-800 mb-5 leading-tight" itemprop="headline">{{ article.title }}</h1>
           </div>
         </div>
       {% when 'article_author' && 'article_published_date' %}
-        <div class="font-semibold overflow-hidden text-[13px] inline-flex border-b items-center pb-2">
+        <div class="font-semibold overflow-hidden text-[13px] bg-indigo-50 px-2 rounded-md border border-indigo-200 inline-flex flex-wrap border-b items-center mb-4 gap-x-2">
           {% if section.settings.enable_author %}
-            <div class=" py-1 px-1 text-center" itemscope itemtype="http://schema.org/Person">
-              <span class="text-neutral-500">Author :</span><span class="ml-2" itemprop="author" >{{ article.author }}</span>
+            <div class=" py-1 text-center" itemscope itemtype="http://schema.org/Person">
+              <span class="ml-2" itemprop="author" >{{ article.author }}</span>
             </div>
           {% endif %}
           |
           {% if section.settings.enable_publish_date %}
-            <time class=" py-1 px-2 text-center" datetime="{{ article.published_at | date : '%Y-%m-%d' }}" itemprop="datePublished dateCreated">
-              {{ article.published_at | date: '%Y-%m-%d' }}
+            <time class=" mr-2 py-1 text-center" datetime="{{ article.published_at | date : "%B %d, %Y" }}" itemprop="datePublished dateCreated">
+               {{ article.published_at | date: "%B %d, %Y" }}
             </time>
           {% endif %}
         </div>
+      
       {% when 'featured_image' %}
-        <img
-          itemprop="image"
-          class="rounded-t-2xl"
-          src="{{ article.image | img_url:'master' }}"
-          loading="lazy"
-          height="{{ article.image.height }}"
-          width="{{ article.image.width }}"
-          alt="{{ article.image.alt }}"
-        >
+      
+      <img
+        itemprop="image"
+        class="border-l border-t border-r rounded-t-2xl"
+        src="{{ article.image | img_url:'master' }}"
+        loading="lazy"
+        height="{{ article.image.height }}"
+        width="{{ article.image.width }}"
+        alt="{{ article.image.alt }}"
+      >
+      
       {% when 'article_content' %}
-        <div itemprop="articleBody" class="article_cont">{{ article.content }}</div>
+      <div itemprop="articleBody" class="article_cont">{{ article.content }}</div>
       {% else %}
 
     {% endcase %}
@@ -46,18 +49,18 @@
   <div id="comment" class="my-6">
     {% if article.comments_count > 0 %}
         <div class="flex-1 items-center justify-center mx-auto max-w-4xl">
-            <h1 class="text-lg mb-4 font-medium">See what people are saying</h1>
+            <h2 class="text-2xl mt-5 mb-6 font-medium">See what people are saying</h2>
             <div class="rounded-xl border border-neutral-200 py-8 px-6 bg-gradient-to-tr from-indigo-50 to-lime-50">
               {% paginate article.comments by 5 %}
-                <div class="grid sm:grid-cols-2 gap-5">
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {% for comment in article.comments %}
                     <div class="flex-1 flex flex-col border  leading-relaxed rounded-xl overflow-hidden shadow-lg">
                       <div class="flex items-center bg-neutral-50 shadow-sm z-10">
-                        <span class="comment-author font-medium text-lg py-4 px-3 sm:px-4 sm:py-4">{{ comment.author }}</span>
-                        <span class="text-[12px] text-neutral-50 bg-neutral-500 px-3 py-1 rounded-full">{{ comment.created_at | date: format: 'abbreviated_date'}}</span>
+                        <span class="comment-author font-medium text-lg py-4 px-3 sm:px-4 sm:py-4 text-neutral-600">{{ comment.author }}</span>
+                        <span class="text-[12px] text-indigo-500 border border-indigo-200 bg-indigo-50 px-3 py-1 rounded-full">{{ comment.created_at | date: '%B %d, %Y'}}</span>
                       </div>
-                      <div class="w-full flex-1 mx-0 block py-4 px-4 sm:px-6 sm:py-4 bg-neutral-100">
-                        {{ comment.content }}
+                      <div class="w-full inline-flex flex-1 mx-0 gap-1 py-4 px-4 sm:px-6 sm:py-4 bg-neutral-100 italic text-neutral-500 text-[13px] tracking-wide">
+                        <span class="text-lg font-bold text-rose-500">“</span> {{ comment.content }} <span class="text-lg font-bold text-rose-500">”</span>
                       </div>
                     </div>
                 {% endfor %}
@@ -74,14 +77,16 @@
       <p class="px-2">There are not comment for this post.</p>
     {% endif %}
   </div> 
+  <h2 class="text-2xl mt-5 mb-6 font-medium">Write your comment</h2>
   <div id="comment_form" class="mb-6 rounded-xl border border-neutral-200 bg-gradient-to-tr from-indigo-50 to-neutral-50">
     {% form 'new_comment', article %}
       <div class="flex-1 mx-auto items-center justify-center max-w-4xl py-6 px-4">
+        
         {% if form.errors %}
           <div class="border border-red-200 px-3 pt-3 rounded-lg mb-5 mx-4 mt-2 bg-red-100">
             <div class="flex flex-row items-center mb-1">
               <div class="text-red-500">
-                  {% render 'icon-failed' %}
+                  {% render 'icon-error' %}
               </div>
               <div class="text-sm font-medium ml-3">
                 Oh! your commnet was not posted
@@ -156,6 +161,33 @@
     {% endform %}
   </div>
 {% endif %}
+
+<script type="application/ld+json">
+  {
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "headline" : {{ article.title | json }},
+    "articleBody" : {{ article.content | strip_html | json }},
+    {% if article.excerpt != blank %}
+      "descrption" : {{ article.excerpt | strip_html | json }},
+    {% endif %}
+    {% if article.image %}
+      "image" : [
+        {{ article.image | img_url : "medium" | prepend: 'http:' | json }}
+      ],
+    {% endif %}
+    "datePublished" : {{ article.published_at | date: '%B %d, %Y' | json }},
+    "dateCreated" : {{ article.created_at | date: '%B %d, %Y' | json }},
+    "author" : {
+        "@type" : "Person",
+        "name" : {{ article.author | json  }}
+    },
+    "publisher" : {
+      "@type" : "Organization",
+      "name" : {{ shop.name | json }}
+    }
+  }
+</script>
 
 {% schema %}
 {
