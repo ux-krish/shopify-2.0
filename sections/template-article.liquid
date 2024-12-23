@@ -3,11 +3,11 @@
     {% case block.type %}
       {% when 'article_title' %}
         <div class="flex item-center justify-center ">
-          <div class="max-w-7xl">
+          <div class="w-full">
             <a href="{{ blog.url }}" class="text-base uppercase text-neutral-500 hover:text-neutral-800 font-bold">
               {{ blog.title }}
             </a>
-            <h1 class="text-4xl font-bold text-neutral-800 mb-5">{{ article.title }}</h1>
+            <h1 class="text-4xl font-bold text-neutral-800 mb-5 leading-tight">{{ article.title }}</h1>
           </div>
         </div>
       {% when 'article_author' && 'article_published_date' %}
@@ -34,7 +34,7 @@
           alt="{{ article.image.alt }}"
         >
       {% when 'article_content' %}
-        <div class="py-8 px-6 rounded-b-2xl bg-neutral-50 border border-neutral-200 text-sm">{{ article.content }}</div>
+        <div class="article_cont">{{ article.content }}</div>
       {% else %}
 
     {% endcase %}
@@ -46,8 +46,9 @@
     {% if article.comments_count > 0 %}
         <div class="flex-1 items-center justify-center mx-auto max-w-4xl">
             <h1 class="text-lg mb-4 font-medium">See what people are saying</h1>
-            <div class="grid sm:grid-cols-2 gap-5 rounded-xl border border-neutral-200 py-8 px-6 bg-gradient-to-tr from-indigo-50 to-lime-50">
+            <div class="rounded-xl border border-neutral-200 py-8 px-6 bg-gradient-to-tr from-indigo-50 to-lime-50">
               {% paginate article.comments by 5 %}
+                <div class="grid sm:grid-cols-2 gap-5">
                 {% for comment in article.comments %}
                     <div class="flex-1 flex flex-col border  leading-relaxed rounded-xl overflow-hidden shadow-lg">
                       <div class="flex items-center bg-neutral-50 shadow-sm z-10">
@@ -59,8 +60,11 @@
                       </div>
                     </div>
                 {% endfor %}
-                {% if paginate.pages > 2 %}
-                    {{ paginate | default_pagination }}                  
+                </div>
+                {% if paginate.pages > 1 %}
+                  <div class="post-pagination">
+                    {{ paginate | default_pagination }}     
+                  </div>               
                 {% endif %}
               {% endpaginate %}
             </div>
