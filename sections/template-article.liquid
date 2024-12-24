@@ -30,7 +30,7 @@
       <img
         itemprop="image"
         class="border-l border-t border-r rounded-t-2xl"
-        src="{{ article.image | img_url:'master' }}"
+        src="{{ article.image | img_url: "master" }}"
         loading="lazy"
         height="{{ article.image.height }}"
         width="{{ article.image.width }}"
@@ -48,7 +48,7 @@
 {% if blog.comments_enabled? %}
   <div id="comment" class="my-6">
     {% if article.comments_count > 0 %}
-        <div class="flex-1 items-center justify-center mx-auto max-w-4xl">
+        <div class="flex-1 items-center justify-center mx-auto max-w-6xl">
             <h2 class="text-2xl mt-5 mb-6 font-medium">See what people are saying</h2>
             <div class="rounded-xl border border-neutral-200 py-8 px-6 bg-gradient-to-tr from-indigo-50 to-lime-50">
               {% paginate article.comments by 5 %}
@@ -193,7 +193,7 @@
 {
   "name": "Template Article",
   "tag": "article",
-  "class": "flex max-w-4xl flex-col w-full mx-auto p-5",
+  "class": "flex max-w-6xl flex-col w-full mx-auto p-5",
   "settings": [
     {
       "type": "checkbox",
